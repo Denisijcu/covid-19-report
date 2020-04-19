@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        header {
-            background-image: url("/covid-19c.jpg");
-            background-repeat: no-repeat;
-            background-size:100vw 100vh;
-            background-attachment:fixed;
-            height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
@@ -23,9 +15,14 @@
             <p class="ml-2">Report Updated</p>
 
         </header>
+
+        <div class="loader h-2 w-2 ml-40">
+            <div class="circle h-2 w-2"></div>
+            <div class="circle h-2 w-2"></div>
+        </div>
     
     
-    <div class="flex">
+    <div class="flex main">
     <form class="w-full max-w-sm">
         <div class="flex items-right border-b border-b-2 border-teal-500 py-2">
           <input id="_valueSearch" class="appearance-none bg-transparent border-none w-full text-gray-700 ml-3 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Enter Country Name" aria-label="Full name">
@@ -42,5 +39,20 @@
         <div class="output">
     </div>
    <script src="app.js"></script> 
+   <script>
+
+const loader = document.querySelector('.loader');
+      const main = document.querySelector('.main');
+
+      function init() {
+        setTimeout(() => {
+          loader.style.opacity = 0;
+          loader.style.display = 'none';
+          main.style.display = 'block';
+          setTimeout(() => (main.style.opacity = 1), 50);
+        }, 4000);
+      }
+      init();
+   </script>
 </body>
 </html>
