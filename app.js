@@ -8,8 +8,8 @@ let b = 0;
 let c = 0;
 let d = 0;
 
-
 btnSearch.addEventListener("click", fnSearch, false);
+
 function fnSearch() {
     console.log("Clicked", searchContry.value);
 
@@ -19,11 +19,11 @@ function fnSearch() {
     }
 
     const data = countries.filter(country => country.name == searchContry.value.trim());
-    console.log(data);
+  
 
-   // const w = setTimeout(() => {
-        
-        document.querySelector(".output").innerHTML = `
+    // const w = setTimeout(() => {
+
+    document.querySelector(".output").innerHTML = `
         <div class="m-6 font-bold text-2xl mb-4 text-center">
        
         Total Global
@@ -72,13 +72,27 @@ function fnSearch() {
             <div class="w-1/4 bg-gray-100 h-12 text-center"> ${data[0].critical} </div>
             <div class="w-1/4 bg-gray-100 h-12 text-center">${data[0].deaths} </div>
             </div>
+    
+           
+       
+    
             </div>
+    
+            
+    
+    
+          
+       
     
      </div>       
     
         `;
 
-   // },300)     
+    // },300)
+
+
+
+
 }
 
 
@@ -97,20 +111,23 @@ let totals = {
 }
 let countries = [];
 
+function getData() {
 
-fetch("https://covid19-data.p.rapidapi.com/all", {
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "covid19-data.p.rapidapi.com",
-		"x-rapidapi-key": "a4d88542ddmsh83b0bba200cbeadp153617jsn8ecb1e30a036"
-	}
-})
-.then(response => {
-	console.log(response);
-})
-.then((data) => {
+    fetch("https://covid19-data.p.rapidapi.com/all", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "covid19-data.p.rapidapi.com",
+                "x-rapidapi-key": "a4d88542ddmsh83b0bba200cbeadp153617jsn8ecb1e30a036"
+            }
+        })
+        .then(response => {
+            return response.json();
+
+
+        })
+        .then((data) => {
             data.forEach(e => {
-               // console.log(e.country, e.confirmed, e.recovered, e.critical, e.deaths);
+               
                 country = {
                     name: e.country,
                     confirmed: e.confirmed,
@@ -121,14 +138,12 @@ fetch("https://covid19-data.p.rapidapi.com/all", {
                 countries.push(country);
                 return countries;
             });
-    })
-    .catch(err => {
-        console.log(err);
-    });
+        })
+        .catch(err => {
+            console.log(err);
+        });
     return countries;
 }
-
-let data = getData();
 
 
 
@@ -136,31 +151,34 @@ let data = getData();
 
 function totalConfirmed() {
     let initialValue = 0
-    let sum = data.reduce(function (accumulator, currentValue) {
+    let sum = data.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.confirmed
     }, initialValue);
     totals.confirmed = sum;
     return sum;
 }
+
 function totalRecovered() {
     let initialValue = 0
-    let sum = data.reduce(function (accumulator, currentValue) {
+    let sum = data.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.recovered
     }, initialValue);
     totals.recovered = sum;
     return sum;
 }
+
 function totalCritical() {
     let initialValue = 0
-    let sum = data.reduce(function (accumulator, currentValue) {
+    let sum = data.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.critical
     }, initialValue);
     totals.critical = sum;
     return sum;
 }
+
 function totalDeaths() {
     let initialValue = 0
-    let sum = data.reduce(function (accumulator, currentValue) {
+    let sum = data.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.deaths
     }, initialValue);
     totals.deaths = sum;
@@ -171,7 +189,7 @@ function totalDeaths() {
 const esperar = setTimeout(showData, 300);
 
 
-function showData(){
+function showData() {
     const confirmed = totalConfirmed();
     const recovered = totalRecovered();
     const critical = totalCritical();
@@ -188,8 +206,8 @@ function showData(){
     d = death;
 
     let lista = "";
-    countries.map( country => {
-             
+    countries.map(country => {
+
         lista += `<div class="m-4">
 
         <div class="bg-gray-100  m-6 font-bold text-2xl mb-4 text-center">
@@ -223,7 +241,7 @@ function showData(){
     });
 
 
-    
+
     document.querySelector(".output").innerHTML = `
 
     <div class="m-6 font-bold text-2xl mb-4 text-center">
@@ -258,3 +276,9 @@ function showData(){
  
     `;
 }
+
+
+let data = getData();
+setTimeout(() => {
+    showData();
+}, 2000);
