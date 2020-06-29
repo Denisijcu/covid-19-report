@@ -97,20 +97,18 @@ let totals = {
 }
 let countries = [];
 
-function getData() {
-    fetch("https://covid19-data.p.rapidapi.com/all", {
+
+fetch("https://covid19-data.p.rapidapi.com/all", {
 	"method": "GET",
 	"headers": {
 		"x-rapidapi-host": "covid19-data.p.rapidapi.com",
 		"x-rapidapi-key": "a4d88542ddmsh83b0bba200cbeadp153617jsn8ecb1e30a036"
 	}
-  })
-    .then(response => {
-        return response.json();
-        
-    
-    })
-        .then((data) => {
+})
+.then(response => {
+	console.log(response);
+})
+.then((data) => {
             data.forEach(e => {
                // console.log(e.country, e.confirmed, e.recovered, e.critical, e.deaths);
                 country = {
