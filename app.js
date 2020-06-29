@@ -72,27 +72,13 @@ function fnSearch() {
             <div class="w-1/4 bg-gray-100 h-12 text-center"> ${data[0].critical} </div>
             <div class="w-1/4 bg-gray-100 h-12 text-center">${data[0].deaths} </div>
             </div>
-    
-           
-       
-    
             </div>
-    
-            
-    
-    
-          
-       
     
      </div>       
     
         `;
 
-   // },300)
-
-   
-    
-     
+   // },300)     
 }
 
 
@@ -112,13 +98,13 @@ let totals = {
 let countries = [];
 
 function getData() {
-    fetch("https://covid-19-data.p.rapidapi.com/country/all?format=json", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-            "x-rapidapi-key": "a4d88542ddmsh83b0bba200cbeadp153617jsn8ecb1e30a036"
-        }
-    })
+    fetch("https://covid19-data.p.rapidapi.com/all", {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "covid19-data.p.rapidapi.com",
+		"x-rapidapi-key": "a4d88542ddmsh83b0bba200cbeadp153617jsn8ecb1e30a036"
+	}
+  })
     .then(response => {
         return response.json();
         
