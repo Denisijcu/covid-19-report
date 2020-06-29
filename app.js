@@ -42,7 +42,7 @@ function fnSearch() {
      <div class="flex mb-4">
      <div class="w-1/4 bg-gray-100 h-12 text-center"> ${a} </div>
      <div class="w-1/4 bg-gray-100 h-12 text-center"> ${b} </div>
-     <div class="w-1/4 bg-gray-100 h-12 text-center"> ${c} </div>
+     <div class="w-1/4 bg-gray-100 h-12 text-center"> </div>
      <div class="w-1/4 bg-gray-100 h-12 text-center">${d} </div>
      </div>
      </div>
@@ -69,7 +69,7 @@ function fnSearch() {
             <div class="flex">
             <div class="w-1/4 bg-gray-100 h-12 text-center"> ${data[0].confirmed} </div>
             <div class="w-1/4 bg-gray-100 h-12 text-center"> ${data[0].recovered} </div>
-            <div class="w-1/4 bg-gray-100 h-12 text-center"> ${data[0].critical} </div>
+            <div class="w-1/4 bg-gray-100 h-12 text-center"> </div>
             <div class="w-1/4 bg-gray-100 h-12 text-center">${data[0].deaths} </div>
             </div>
     
@@ -227,7 +227,7 @@ function showData() {
         <div class="flex">
         <div class="w-1/4 bg-gray-100 h-12 text-center"> ${country.confirmed} </div>
         <div class="w-1/4 bg-gray-100 h-12 text-center"> ${country.recovered} </div>
-        <div class="w-1/4 bg-gray-100 h-12 text-center"> ${country.critical} </div>
+        <div class="w-1/4 bg-gray-100 h-12 text-center"> </div>
         <div class="w-1/4 bg-gray-100 h-12 text-center">${country.deaths} </div>
         </div>
 
@@ -262,7 +262,7 @@ function showData() {
     <div class="flex mb-4">
     <div class="w-1/4 bg-gray-100 h-12 text-center"> ${conf} </div>
     <div class="w-1/4 bg-gray-100 h-12 text-center"> ${reco} </div>
-    <div class="w-1/4 bg-gray-100 h-12 text-center"> ${criti} </div>
+    <div class="w-1/4 bg-gray-100 h-12 text-center">  </div>
     <div class="w-1/4 bg-gray-100 h-12 text-center">${death} </div>
     </div>
     </div>
