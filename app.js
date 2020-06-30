@@ -10,7 +10,7 @@ let d = 0;
 btnSearch.addEventListener("click", fnSearch, false);
 
 function fnSearch() {
-   // console.log("Clicked", searchContry.value);
+    // console.log("Clicked", searchContry.value);
 
     if (searchContry.value === "") {
         showData();
@@ -22,13 +22,17 @@ function fnSearch() {
     if (data.length === 0) {
         return;
     }
+
+
     //const w = setTimeout(() => {
 
     document.querySelector(".output").innerHTML = `
         <div class="m-6 font-bold text-2xl mb-4 text-center">
-            Total Global   
-       </div>
- 
+       
+        Total Global
+    
+    </div>
+    
      <div class="m-4 bg-gray-100 shadow-ls hover:shadow-xl rounded-2xl">
      <!-- Four columns -->
      <div class="flex mb-4">
@@ -36,14 +40,18 @@ function fnSearch() {
      <div class="w-1/3 bg-gray-400 h-12 text-center"> Recovered </div>
      <div class="w-1/3 bg-gray-400 h-12 text-center"> Deaths </div>
      </div>
+    
      <div class="flex mb-4">
      <div class="w-1/3 bg-gray-100 h-12 text-center"> ${a} </div>
      <div class="w-1/3 bg-gray-100 h-12 text-center"> ${b} </div>
      <div class="w-1/3 bg-gray-100 h-12 text-center">${d} </div>
      </div>
      </div>
+    
             <div class="text-left font-bold text-3xl ml-4 mt-4 mb-4" > Countries List </div>
+    
             <div class="m-4">
+    
             <div class="bg-gray-100  m-6 font-bold text-2xl mb-4 text-center">
              <p class="text-gray-700">
               ${data[0].name} 
@@ -56,16 +64,21 @@ function fnSearch() {
             <div class="w-1/3 bg-gray-400 h-12 text-center"> Recovered </div>
             <div class="w-1/3 bg-gray-400 h-12 text-center"> Deaths </div>
             </div>
+    
             <div class="flex">
             <div class="w-1/3 bg-gray-100 h-12 text-center"> ${data[0].confirmed} </div>
             <div class="w-1/3 bg-gray-100 h-12 text-center"> ${data[0].recovered} </div>
             <div class="w-1/3 bg-gray-100 h-12 text-center">${data[0].deaths} </div>
-            </div>
+            </div>    
             </div>  
-     </div>           
+    
+     </div>       
+    
         `;
+
     //   }, 300)
 }
+
 
 let country = {
     name: String,
@@ -77,6 +90,7 @@ let country = {
 let totals = {
     confirmed: Number,
     recovered: Number,
+    critical: Number,
     deaths: Number
 }
 let countries = [];
@@ -107,7 +121,9 @@ function getData() {
                 return countries;
             });
         })
-        .catch(err => { console.log(err);});
+        .catch(err => {
+            console.log(err);
+        });
     return countries;
 }
 
@@ -129,6 +145,15 @@ function totalRecovered() {
     return sum;
 }
 
+function totalCritical() {
+    let initialValue = 0
+    let sum = data.reduce(function(accumulator, currentValue) {
+        return accumulator + currentValue.critical
+    }, initialValue);
+    totals.critical = sum;
+    return sum;
+}
+
 function totalDeaths() {
     let initialValue = 0
     let sum = data.reduce(function(accumulator, currentValue) {
@@ -136,13 +161,16 @@ function totalDeaths() {
     }, initialValue);
     totals.deaths = sum;
     return sum;
+
 }
 
 const esperar = setTimeout(showData, 300);
 
+
 function showData() {
     const confirmed = totalConfirmed();
     const recovered = totalRecovered();
+    const critical = totalCritical();
     const deaths = totalDeaths();
 
     let conf = new Intl.NumberFormat('de-DE').format(confirmed);
@@ -157,44 +185,63 @@ function showData() {
 
     let lista = "";
     countries.map(country => {
+
         lista += `<div class="m-4">
+
         <div class="bg-gray-100  m-6 font-bold text-2xl mb-4 text-center">
          <p class="text-gray-700">
           ${country.name} 
          </p>
         </div>
+
         <!-- Four columns -->
         <div class="flex">
         <div class="w-1/3 bg-gray-400 h-12 text-center"> Confirmed </div>
         <div class="w-1/3 bg-gray-400 h-12 text-center"> Recovered </div>
         <div class="w-1/3 bg-gray-400 h-12 text-center"> Deaths </div>
         </div>
+
         <div class="flex">
         <div class="w-1/3 bg-gray-100 h-12 text-center"> ${country.confirmed} </div>
         <div class="w-1/3 bg-gray-100 h-12 text-center"> ${country.recovered} </div>
         <div class="w-1/3 bg-gray-100 h-12 text-center">${country.deaths} </div>
-        </div></div>
+        </div>
+        </div>
+        
        `;
+
     });
+
     document.querySelector(".output").innerHTML = `
-            <div class="m-6 font-bold text-2xl mb-4 text-center">
-               Total Global
-           </div>
-            <div class="m-4 bg-gray-100 shadow-ls hover:shadow-xl rounded-2xl">
-            <!-- Four columns -->
-            <div class="flex mb-4">
-            <div class="w-1/3 bg-gray-400 h-12 text-center"> Confirmed </div>
-            <div class="w-1/3 bg-gray-400 h-12 text-center"> Recovered </div>
-            <div class="w-1/3 bg-gray-400 h-12 text-center"> Deaths </div>
-            </div>
-            <div class="flex mb-4">
-            <div class="w-1/3 bg-gray-100 h-12 text-center"> ${conf} </div>
-            <div class="w-1/3 bg-gray-100 h-12 text-center"> ${reco} </div>
-            <div class="w-1/3 bg-gray-100 h-12 text-center">${death} </div>
-            </div></div> 
-             <div class="text-left font-bold text-3xl ml-4 mt-4 mb-4" > Countries List </div>
-                   ${lista}
-            </div>        `;
+
+    <div class="m-6 font-bold text-2xl mb-4 text-center">
+   
+       Total Global
+ 
+   </div>
+
+    <div class="m-4 bg-gray-100 shadow-ls hover:shadow-xl rounded-2xl">
+    <!-- Four columns -->
+    <div class="flex mb-4">
+    <div class="w-1/3 bg-gray-400 h-12 text-center"> Confirmed </div>
+    <div class="w-1/3 bg-gray-400 h-12 text-center"> Recovered </div>
+    <div class="w-1/3 bg-gray-400 h-12 text-center"> Deaths </div>
+    </div>
+
+    <div class="flex mb-4">
+    <div class="w-1/3 bg-gray-100 h-12 text-center"> ${conf} </div>
+    <div class="w-1/3 bg-gray-100 h-12 text-center"> ${reco} </div>
+    <div class="w-1/3 bg-gray-100 h-12 text-center">${death} </div>
+    </div>
+    </div>
+           <div class="text-left font-bold text-3xl ml-4 mt-4 mb-4" > Countries List </div>
+           ${lista}
+      
+    </div>        
+    `;
 }
+
 let data = getData();
-setTimeout(() => { showData();}, 2000);
+setTimeout(() => {
+    showData();
+}, 2000);
